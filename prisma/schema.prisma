@@ -1,0 +1,45 @@
+// This is our Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+}
+
+// , "relationJoins" // only useful for debugging, the default is faster
+
+// when we change the datasource, it is required to re-initialize the
+// associated database
+// migration of existing data has to be done manually
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// The Database Model
+// Changes here require a
+// dev-task-prisma-migrate execution on release
+// try the changes locally with yarn prisma db push
+// when all tests work, reset the db with a restore from production
+// run prisma migrate dev --name what-has-changed
+// and commit the new migration, then execute it on the production
+// database with the release
+
+model DynamicUrl {
+  id          String       @id @default(uuid())
+  key         String @unique
+  destination String       @db.Text
+  Statistics  Statistics[]
+
+  @@index(key)
+}
+
+model Statistics {
+  id         Int        @id @default(autoincrement())
+  createdAt  DateTime   @default(now())
+  url        DynamicUrl @relation(fields: [urlId], references: [id], onDelete: Cascade)
+  urlId      String
+  rawHeaders Json?
+  ip         String?
+  ua         String?
+}

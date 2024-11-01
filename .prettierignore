@@ -1,0 +1,11 @@
+**/.git
+**/node_modules
+
+**/.*
+**/*.svg
+**/*.ico
+**/*.png
+**/*.jpg
+**/*.gif
+**/*.sh
+Dockerfile
