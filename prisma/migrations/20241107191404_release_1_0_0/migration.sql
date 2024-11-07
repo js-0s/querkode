@@ -1,6 +1,7 @@
 -- CreateTable
 CREATE TABLE `DynamicUrl` (
     `id` VARCHAR(191) NOT NULL,
+    `externId` VARCHAR(191) NULL,
     `key` VARCHAR(191) NOT NULL,
     `destination` TEXT NOT NULL,
 
@@ -10,7 +11,7 @@ CREATE TABLE `DynamicUrl` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Statistics` (
+CREATE TABLE `Statistic` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `urlId` VARCHAR(191) NOT NULL,
@@ -22,4 +23,4 @@ CREATE TABLE `Statistics` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
-ALTER TABLE `Statistics` ADD CONSTRAINT `Statistics_urlId_fkey` FOREIGN KEY (`urlId`) REFERENCES `DynamicUrl`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Statistic` ADD CONSTRAINT `Statistic_urlId_fkey` FOREIGN KEY (`urlId`) REFERENCES `DynamicUrl`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

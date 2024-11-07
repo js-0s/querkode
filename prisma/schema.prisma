@@ -26,15 +26,16 @@ datasource db {
 // database with the release
 
 model DynamicUrl {
-  id          String       @id @default(uuid())
-  key         String @unique
-  destination String       @db.Text
-  Statistics  Statistics[]
+  id          String      @id @default(uuid())
+  externId    String?
+  key         String      @unique
+  destination String      @db.Text
+  Statistic   Statistic[]
 
   @@index(key)
 }
 
-model Statistics {
+model Statistic {
   id         Int        @id @default(autoincrement())
   createdAt  DateTime   @default(now())
   url        DynamicUrl @relation(fields: [urlId], references: [id], onDelete: Cascade)
